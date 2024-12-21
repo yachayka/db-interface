@@ -56,13 +56,14 @@ fun Application.configureTemplating() {
             }
 
              */
-            get("/product_type") {
+            get("/order_work") {
+                println("llllllllllllllllllllllll")
                 val page = call.parameters["page"]?.toIntOrNull() ?: 1
                 val limit = 3
                 val offset = (page - 1) * limit
-                val producttyped = select_w("product_type", limit, offset)
+                val producttyped = select_w("products", limit, offset)
 
-                call.respond(ThymeleafContent("table/standart/product_type_table", mapOf(
+                call.respond(ThymeleafContent("table/standart/order_work_table", mapOf(
                     "results" to producttyped,
                     "currentPage" to page
                 )))

@@ -38,9 +38,9 @@ fun Application.configureRouting() {
                 getConnection()
                 call.respondRedirect("/product_type")
             }
-            if(action == "products") {
+            if(action == "order_work") {
                 getConnection()
-                call.respondRedirect("/products")
+                call.respondRedirect("/order_work")
             }
             if(action == "supplier") {
                 getConnection()

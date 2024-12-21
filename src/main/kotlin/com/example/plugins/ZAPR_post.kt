@@ -143,21 +143,18 @@ fun Application.configureZapR() {
             call.respondRedirect("/work_r")
         }
         post("/order_work"){
+            println("lololololololololol")
             val wor = call.receiveParameters()
             val action = wor["action"]
-            val tablename = "orde_work"
+            val tablename = "products"
             val param_id = order_work_id(
-                wor["id_order"] ?: "",
-                wor["id_work"]?: "",
-                wor["id_equipment"]?: "",
-                wor["id_employee"]?: "",
-                wor["id_assortment"]?: "",
+                wor["Supply_ID"] ?: "",
+                wor["Supplier_ID"]?: "",
+                wor["Product_ID"]?: "",
+                wor["Equipment_ID"]?: "",
             )
             val param = order_work(
-                wor["count"] ?: "",
-                wor["status"]?: "",
-                wor["price"]?: "",
-                wor["id_price"]?: ""
+                wor["Quantity"] ?: "",
             )
             getConnection()
             if (action == "into"){
@@ -175,11 +172,7 @@ fun Application.configureZapR() {
                     param_id.id_work,
                     param_id.id_employee,
                     param_id.id_equipment,
-                    param_id.id_assortment,
                     param.count,
-                    param.status,
-                    param.price,
-                    param.id_price
                 ).all { it.isEmpty() }
                 println(allFieldsEmpty)
                 if (allFieldsEmpty) {
@@ -203,19 +196,15 @@ fun Application.configureZapR() {
         post("/order_work_r"){
             val wor = call.receiveParameters()
             val action = wor["action"]
-            val tablename = "orde_work"
+            val tablename = "products"
             val param_id = order_work_id(
-                wor["id_order"] ?: "",
-                wor["id_work"]?: "",
-                wor["id_equipment"]?: "",
-                wor["id_employee"]?: "",
-                wor["id_assortment"]?: "",
+                wor["Supply_ID"] ?: "",
+                wor["Supplier_ID"]?: "",
+                wor["Product_ID"]?: "",
+                wor["Equipment_ID"]?: "",
             )
             val param = order_work(
-                wor["count"] ?: "",
-                wor["status"]?: "",
-                wor["price"]?: "",
-                wor["id_price"]?: ""
+                wor["Quantity"] ?: "",
             )
             getConnection()
             if (action == "into"){
@@ -233,11 +222,7 @@ fun Application.configureZapR() {
                     param_id.id_work,
                     param_id.id_employee,
                     param_id.id_equipment,
-                    param_id.id_assortment,
                     param.count,
-                    param.status,
-                    param.price,
-                    param.id_price
                 ).all { it.isEmpty() }
                 println(allFieldsEmpty)
                 if (allFieldsEmpty) {

@@ -12,7 +12,7 @@ fun del_order_work(ord: order_work_id, tableName: String) {
     try {
         stmt = conn!!.createStatement()
         val sql = """
-        DELETE FROM $tableName WHERE id_orde='${ord.id_order}' AND id_work='${ord.id_work}' AND id_employee='${ord.id_employee}' AND id_equipment='${ord.id_equipment}' AND id_assortment='${ord.id_assortment}'; 
+        DELETE FROM $tableName WHERE id_orde='${ord.id_order}' AND id_work='${ord.id_work}' AND id_employee='${ord.id_employee}' AND id_equipment='${ord.id_equipment}'; 
     """.trimIndent()
         stmt!!.execute(sql)
     } catch (e: SQLException) {
@@ -23,20 +23,11 @@ fun update_order_work(ord: order_work_id, work: order_work, tableName: String) {
     try {
         val updateFields = mutableListOf<String>()
         stmt = conn!!.createStatement()
-        if (work.status != "Не выбрано"){
-            updateFields.add("orde_status='${work.status}'")
-        }
         if (work.count.isNotEmpty()){
             updateFields.add("count='${work.count}'")
         }
-        if (work.price.isNotEmpty()){
-            updateFields.add("price='${work.price}'")
-        }
-        if (work.id_price.isNotEmpty()){
-            updateFields.add("id_prese='${work.id_price}'")
-        }
         val sql = """
-            UPDATE $tableName SET ${updateFields.joinToString(", ")} WHERE id_orde='${ord.id_order}' AND id_work='${ord.id_work}' AND id_employee='${ord.id_employee}' AND id_equipment='${ord.id_equipment}' AND id_assortment='${ord.id_assortment}';
+            UPDATE $tableName SET ${updateFields.joinToString(", ")} WHERE id_orde='${ord.id_order}' AND id_work='${ord.id_work}' AND id_employee='${ord.id_employee}' AND id_equipment='${ord.id_equipment}';
         """.trimIndent()
         stmt!!.execute(sql)
     }catch (e: SQLException) {
@@ -49,7 +40,7 @@ fun into_order_work(ord: order_work_id, work: order_work, tableName: String) {
         val sql = """
             INSERT INTO ${tableName} (count, orde_status, id_orde, id_work, id_equipment, id_employee, id_assortment, price, id_prese) 
             VALUES 
-            ('${work.count}', '${work.status}', '${ord.id_order}', '${ord.id_work}', '${ord.id_equipment}', '${ord.id_employee}', '${ord.id_assortment}', '${work.price}', '${work.id_price}');
+            ('${work.count}', '${ord.id_order}', '${ord.id_work}', '${ord.id_equipment}', '${ord.id_employee}';
         """.trimIndent()
         stmt!!.execute(sql)
     }catch (e: SQLException) {
@@ -66,11 +57,7 @@ fun select_work_order(id: order_work_id, ord: order_work, tableName: String): Ar
             if (id.id_employee.isNotEmpty()) updateFields.add("id_employee='${id.id_employee}'")
             if (id.id_equipment.isNotEmpty()) updateFields.add("id_equipment='${id.id_equipment}'")
             if (id.id_work.isNotEmpty()) updateFields.add("id_work='${id.id_work}'")
-            if (id.id_assortment.isNotEmpty()) updateFields.add("id_assortment='${id.id_assortment}'")
             if (ord.count.isNotEmpty()) updateFields.add("count='${ord.count}'")
-            if (ord.status.isNotEmpty()) updateFields.add("status='${ord.status}'")
-            if (ord.price.isNotEmpty()) updateFields.add("price='${ord.price}'")
-            if (ord.id_price.isNotEmpty()) updateFields.add("id_prese='${ord.id_price}'")
 
             val sql = """
                 SELECT * FROM $tableName WHERE ${updateFields.joinToString("AND ")};

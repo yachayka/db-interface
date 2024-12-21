@@ -90,48 +90,41 @@
         <th>ID_заказа</th>
         <th>ID_работы</th>
         <th>ID_оборудования</th>
-        <th>ID_работника</th>
-        <th>ID_ассортимента</th>
-        <th>Цена за товар</th>
-        <th>ID_цены</th>
         <th>Изменения</th>
     </tr>
     </thead>
     <tbody>
     <tr>
         <form method="post" action="/order_work">
-            <th><input type="text" name="count"></th>
-            <th><input type="text" name="status"></th>
-            <th><input type="text" name="id_order"></th>
-            <th><input type="text" name="id_work"></th>
-            <th><input type="text" name="id_equipment"></th>
-            <th><input type="text" name="id_employee"></th>
-            <th><input type="text" name="id_assortment"></th>
-            <th><input type="text" name="price"></th>
-            <th><input type="text" name="id_price"></th>
+            <th><input type="text" name="Supply_ID"></th>
+            <th><input type="text" name="Supplier_ID"></th>
+            <th><input type="text" name="Product_ID"></th>
+            <th><input type="text" name="Equipment_ID"></th>
+            <th><input type="text" name="Quantity"></th>
             <th><button type="submit" name="action" value="select">Поиск</button></th>
         </form>
     </tr>
     <tr th:each="order_work: ${results}">
         <form method="post" action="/order_work">
-            <td th:text="${order_work.count}"></td>
-            <td th:text="${order_work.orde_status}"></td>
-            <td th:text="${order_work.id_orde}"></td>
-            <td th:text="${order_work.id_work}"></td>
-            <td th:text="${order_work.id_equipment}"></td>
-            <td th:text="${order_work.id_employee}"></td>
-            <td th:text="${order_work.id_assortment}"></td>
-            <td th:text="${order_work.price}"></td>
-            <td th:text="${order_work.id_prese}"></td>
+            <td th:text="${order_work.Supply_ID}"></td>
+            <td th:text="${order_work.Supplier_ID}"></td>
+            <td th:text="${order_work.Product_ID}"></td>
+            <td th:text="${order_work.Equipment_ID}"></td>
+            <td th:text="${order_work.Quantity}"></td>
             <td>
-                <input type="hidden" name="id_order" th:value="${order_work.id_orde}"/>
-                <input type="hidden" name="id_work" th:value="${order_work.id_work}"/>
-                <input type="hidden" name="id_equipment" th:value="${order_work.id_equipment}"/>
-                <input type="hidden" name="id_employee" th:value="${order_work.id_employee}"/>
-                <input type="hidden" name="id_assortment" th:value="${order_work.id_assortment}"/>
+                <input type="hidden" name="Supply_ID" th:value="${order_work.Supplier_ID}"/>
+                <input type="hidden" name="Supplier_ID" th:value="${order_work.Supplier_ID}"/>
+                <input type="hidden" name="Product_ID" th:value="${order_work.Product_ID}"/>
+                <input type="hidden" name="Equipment_ID" th:value="${order_work.Equipment_ID}"/>
+                <button type="submit" name="action" value="del">Удалить</button>
                 <button type="button"
-                             th:attr="data-count=${order_work.count}, data-status=${order_work.orde_status}, data-id_order=${order_work.id_orde}, data-id_work=${order_work.id_work}, data-id_equipment=${order_work.id_equipment}, data-id_employee=${order_work.id_employee}, data-id_assortment=${order_work.id_assortment}, data-price=${order_work.price}, data-prese=${order_work.id_prese}"
-                             onclick="openModal_select(this.dataset.count, this.dataset.status, this.dataset.id_order, this.dataset.id_work, this.dataset.id_equipment, this.dataset.id_employee, this.dataset.id_assortment, this.dataset.price, this.dataset.prese)">
+                        th:attr="data-id_order=${order_work.Supplier_ID}, data-id_work=${order_work.Supplier_ID}, data-id_equipment=${order_work.Product_ID}, data-id_employee=${order_work.Equipment_ID}"
+                        onclick="openModal_update(this.dataset.id_order, this.dataset.id_work, this.dataset.id_equipment, this.dataset.id_employee, this.dataset.id_assortment)">
+                    Изменить
+                </button>
+                <br> <button type="button"
+                             th:attr="data-count=${order_work.Quantity}, data-id_order=${order_work.Supplier_ID}, data-id_work=${order_work.Supplier_ID}, data-id_equipment=${order_work.Product_ID}, data-id_employee=${order_work.Equipment_ID}"
+                             onclick="openModal_select(this.dataset.Quantity, this.dataset.Supplier_ID, this.dataset.Supplier_ID, this.dataset.Product_ID, this.dataset.Equipment_ID)">
                 Посмотреть
             </button>
             </td>
